@@ -44,33 +44,32 @@ public class AnalyticsService {
         System.out.println("Invoices sorted by total amount: ");
         listsWithSortedInvoices.get(2).forEach(System.out::println);
         System.out.println("_".repeat(50));
-
     }
 
-    private Map<Device.DeviceType, Long> getInfoOfSoldDevices() {
+    public Map<Device.DeviceType, Long> getInfoOfSoldDevices() {
         return INVOICE_REPOSITORY.getAll().stream()
                 .flatMap(v -> v.getDevices().stream())
                 .collect(Collectors.groupingBy(Device::getDeviceType, Collectors.counting()));
     }
 
-    private Invoice getLowestInvoice() {
+    public Invoice getLowestInvoice() {
         return INVOICE_REPOSITORY.getAll().stream()
                 .min(Comparator.comparingInt(Invoice::getTotalAmount)).orElseThrow();
 
     }
 
-    private int getSumOfAllInvoicesTotalAmount() {
+    public int getSumOfAllInvoicesTotalAmount() {
         return INVOICE_REPOSITORY.getAll().stream()
                 .mapToInt(Invoice::getTotalAmount).sum();
     }
 
-    private int getCountOfRetailInvoices() {
+    public int getCountOfRetailInvoices() {
         return (int) INVOICE_REPOSITORY.getAll().stream()
                 .filter(invoice -> invoice.getInvoiceType().equals(Invoice.InvoiceType.RETAIL))
                 .count();
     }
 
-    private List<Invoice> getInvoicesIncludesSingleDeviceType() {
+    public List<Invoice> getInvoicesIncludesSingleDeviceType() {
         return INVOICE_REPOSITORY.getAll().stream()
                 .filter(invoice -> invoice.getDevices().stream()
                         .map(Device::getDeviceType)
@@ -78,23 +77,23 @@ public class AnalyticsService {
                 .collect(Collectors.toList());
     }
 
-    private List<Invoice> getFirstThreeInvoices() {
+    public List<Invoice> getFirstThreeInvoices() {
         return INVOICE_REPOSITORY.getAll().stream()
                 .limit(3)
                 .collect(Collectors.toList());
     }
 
-    private List<Invoice> getInvoicesUnderEighteen() {
+    public List<Invoice> getInvoicesUnderEighteen() {
         return INVOICE_REPOSITORY.getAll().stream()
                 .filter(invoice -> invoice.getCustomer().getAge() < 18)
                 .peek(invoice -> invoice.setInvoiceType(Invoice.InvoiceType.LOW_AGE))
                 .collect(Collectors.toList());
     }
 
-    private List<List<Invoice>> sortInvoices() {
-        ArrayList<Invoice> invoicesByAge = new ArrayList<>();
-        ArrayList<Invoice> invoicesByDevicesCount = new ArrayList<>();
-        ArrayList<Invoice> invoicesByTotalAmount = new ArrayList<>();
+    public List<List<Invoice>> sortInvoices() {
+        List<Invoice> invoicesByAge = new ArrayList<>();
+        List<Invoice> invoicesByDevicesCount = new ArrayList<>();
+        List<Invoice> invoicesByTotalAmount = new ArrayList<>();
 
         INVOICE_REPOSITORY.getAll().stream()
                 .sorted(Comparator.comparingInt(i -> -i.getCustomer().getAge()))

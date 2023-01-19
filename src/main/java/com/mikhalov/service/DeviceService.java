@@ -96,7 +96,7 @@ public class DeviceService {
 
     private List<List<String>> readFile(String file) {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        String delimiter = ";";
+        String delimiter = ",";
         List<List<String>> lists = new ArrayList<>();
         try (InputStream input = loader.getResourceAsStream(file);
              BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(input)))) {
@@ -106,11 +106,11 @@ public class DeviceService {
                 try {
                     boolean b = values.stream().anyMatch(String::isBlank);
                     if (b) {
-                        throw new IllegalArgumentException("Wrong raw was not added to list");//TODO create exception
+                        throw new WrongRawException("Wrong raw was not added to list");//TODO create exception
                     } else {
                         lists.add(values);
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (WrongRawException e) {
                     System.out.println(e.getMessage());
                 }
             }
