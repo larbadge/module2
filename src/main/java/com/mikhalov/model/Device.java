@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Device {
+    private int price;
     private final String series;
     private final String screenType;
-    private int price;
     private final DeviceType deviceType;
 
     public Device(String series, String screenType, int price, DeviceType deviceType) {

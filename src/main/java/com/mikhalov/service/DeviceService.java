@@ -38,14 +38,6 @@ public class DeviceService {
         return deviceService;
     }
 
-    public void add(Device device) {
-        DEVICE_REPOSITORY.save(device);
-    }
-
-    public void deleteAll() {
-        DEVICE_REPOSITORY.clear();
-    }
-
     public List<Device> getAll() {
         return DEVICE_REPOSITORY.getAll();
     }

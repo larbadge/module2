@@ -3,7 +3,6 @@ package com.mikhalov.service;
 import com.mikhalov.model.Customer;
 import com.mikhalov.model.Device;
 import com.mikhalov.model.Invoice;
-import com.mikhalov.util.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
