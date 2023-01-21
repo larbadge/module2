@@ -14,9 +14,9 @@ public class ShopService {
 
     private static final DeviceService DEVICE_SERVICE = DeviceService.getInstance();
     private static final InvoiceRepository INVOICE_REPOSITORY = InvoiceRepository.getInstance();
-    private final PersonService personService = new PersonService();
-    private final AnalyticsService analyticsService = new AnalyticsService();
     private static ShopService shopService;
+    private final PersonService personService = new PersonService();
+    private final AnalyticsService analyticsService = new AnalyticsService(INVOICE_REPOSITORY);
 
     private ShopService() {
 

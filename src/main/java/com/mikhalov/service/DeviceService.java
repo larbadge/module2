@@ -96,7 +96,7 @@ public class DeviceService {
 
     private List<List<String>> readFile(String file) {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        String delimiter = ",";
+        String delimiter = ";";
         List<List<String>> lists = new ArrayList<>();
         try (InputStream input = loader.getResourceAsStream(file);
              BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(input)))) {

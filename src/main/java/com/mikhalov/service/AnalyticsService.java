@@ -12,7 +12,11 @@ import java.util.stream.Collectors;
 
 public class AnalyticsService {
 
-    private static final InvoiceRepository INVOICE_REPOSITORY = InvoiceRepository.getInstance();
+    private final InvoiceRepository invoiceRepository;
+
+    public AnalyticsService(InvoiceRepository invoiceRepository) {
+        this.invoiceRepository = invoiceRepository;
+    }
 
     public void getAnalytics() {
         System.out.println("Analytics:");
@@ -47,30 +51,30 @@ public class AnalyticsService {
     }
 
     public Map<Device.DeviceType, Long> getInfoOfSoldDevices() {
-        return INVOICE_REPOSITORY.getAll().stream()
+        return invoiceRepository.getAll().stream()
                 .flatMap(v -> v.getDevices().stream())
                 .collect(Collectors.groupingBy(Device::getDeviceType, Collectors.counting()));
     }
 
     public Invoice getLowestInvoice() {
-        return INVOICE_REPOSITORY.getAll().stream()
+        return invoiceRepository.getAll().stream()
                 .min(Comparator.comparingInt(Invoice::getTotalAmount)).orElseThrow();
 
     }
 
     public int getSumOfAllInvoicesTotalAmount() {
-        return INVOICE_REPOSITORY.getAll().stream()
+        return invoiceRepository.getAll().stream()
                 .mapToInt(Invoice::getTotalAmount).sum();
     }
 
     public int getCountOfRetailInvoices() {
-        return (int) INVOICE_REPOSITORY.getAll().stream()
+        return (int) invoiceRepository.getAll().stream()
                 .filter(invoice -> invoice.getInvoiceType().equals(Invoice.InvoiceType.RETAIL))
                 .count();
     }
 
     public List<Invoice> getInvoicesIncludesSingleDeviceType() {
-        return INVOICE_REPOSITORY.getAll().stream()
+        return invoiceRepository.getAll().stream()
                 .filter(invoice -> invoice.getDevices().stream()
                         .map(Device::getDeviceType)
                         .distinct().count() == 1)
@@ -78,13 +82,13 @@ public class AnalyticsService {
     }
 
     public List<Invoice> getFirstThreeInvoices() {
-        return INVOICE_REPOSITORY.getAll().stream()
+        return invoiceRepository.getAll().stream()
                 .limit(3)
                 .collect(Collectors.toList());
     }
 
     public List<Invoice> getInvoicesUnderEighteen() {
-        return INVOICE_REPOSITORY.getAll().stream()
+        return invoiceRepository.getAll().stream()
                 .filter(invoice -> invoice.getCustomer().getAge() < 18)
                 .peek(invoice -> invoice.setInvoiceType(Invoice.InvoiceType.LOW_AGE))
                 .collect(Collectors.toList());
@@ -95,7 +99,7 @@ public class AnalyticsService {
         List<Invoice> invoicesByDevicesCount = new ArrayList<>();
         List<Invoice> invoicesByTotalAmount = new ArrayList<>();
 
-        INVOICE_REPOSITORY.getAll().stream()
+        invoiceRepository.getAll().stream()
                 .sorted(Comparator.comparingInt(i -> -i.getCustomer().getAge()))
                 .peek(invoicesByAge::add)
                 .sorted(Comparator.comparingInt(i -> -i.getDevices().size()))

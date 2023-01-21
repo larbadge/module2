@@ -1,13 +1,13 @@
-type,series,model,diagonal,screen type,country,price
-Telephone,Xiomi,Mi8,none,AMOLED,none,500
-Telephone,IPhone,14,none,QLED,none,1250
-Telephone,Xiomi,Redmi 10,none,QLED,none,250
-Telephone,Samsung,Galaxy S20,none,AMOLED,none,1000
-Telephone,Google,Pixel 6,none,AMOLED,none,1200
-Telephone,Nokia,10,none,,none,300
-Television,LG,none,25,LED,China,2000
-Television,Sony,none,17,LCD,Germany,1800
-Television,Samsung,none,30,QLED,China,1650
-Television,Philips,none,41,OLED,Japan,1500
-Television,Hisense,none,21,TNF,Japan,1300
-Television,Hisense,none,21,,Japan,1800
+type;series;model;diagonal;screen type;country;price
+Telephone;Xiomi;Mi8;none;AMOLED;none;500
+Telephone;IPhone;14;none;QLED;none;1250
+Telephone;Xiomi;Redmi 10;none;QLED;none;250
+Telephone;Samsung;Galaxy S20;none;AMOLED;none;1000
+Telephone;Google;Pixel 6;none;AMOLED;none;1200
+Telephone;Nokia;10;none;;none;300
+Television;LG;none;25;LED;China;2000
+Television;Sony;none;17;LCD;Germany;1800
+Television;Samsung;none;30;QLED;China;1650
+Television;Philips;none;41;OLED;Japan;1500
+Television;Hisense;none;21;TNF;Japan;1300
+Television;Hisense;none;21;;Japan;1800
